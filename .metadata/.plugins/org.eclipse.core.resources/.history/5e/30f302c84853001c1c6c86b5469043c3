@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test6.html</title>
+<script type="text/javascript"></script>
+</head>
+<body>
+	<input type="button" value="버튼" onclick="alert('메시지')">
+</body>
+</html>

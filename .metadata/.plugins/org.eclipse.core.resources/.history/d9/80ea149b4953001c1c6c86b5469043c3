@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test6.html</title>
+<script type="text/javascript">
+	function f1() {
+		alert('메시지1');
+		alert('메시지2');
+		alert('메시지3');
+		alert('메시지4');
+		alert('메시지5');
+	}
+	function f2() {
+		alert("버튼2 더블클릭!")
+	}
+	function f3() {
+		alert("버튼3 ")
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="버튼1" onclick="f1()">
+	<input type="button" value="버튼2" ondblclick="f2()">
+	<input type="button" value="버튼3" onmouseover="f3()">
+</body>
+</html>

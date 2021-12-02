@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test4.html</title>
+<script type="text/javascript">
+	function fun1() {
+		alert("Hello");
+	}
+
+	function fun2(a, b) {
+		alert(2 * a + 3 * b);
+	}
+
+	function fun3(a, b, c) {
+		return a + b + c;
+
+	}
+	fun1(); //메시지출력
+	fun2(10, 20); //두수의 곱출력
+	alert("세수의 합"+fun3(80, 95, 90)); //세 수를 더해서 리턴
+	
+
+</script>
+</head>
+<body>
+</body>
+</html>

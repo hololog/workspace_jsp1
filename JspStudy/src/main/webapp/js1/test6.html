@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test6.html</title>
+<script type="text/javascript">
+	function f1() {
+		alert('메시지1');
+		alert('메시지2');
+		alert('메시지3');
+	}
+	function f2() {
+		alert("버튼2 더블클릭!")
+	}
+	function f3() {
+		alert("버튼3 마우스오버")
+	}
+	function f4() {
+		alert("텍스트상자 활성화")
+	}
+	function f5() {
+		alert("텍스트상자 비활성화")
+	}
+	function f6() {
+		alert("누르고 놓았을때")
+	}
+	function f7() {
+		alert("문서를 불렀을때")
+	}
+</script>
+</head>
+<body onload="f7()">
+	<input type="button" value="버튼1" onclick="f1()">
+	<input type="button" value="버튼2" ondblclick="f2()">
+	<input type="button" value="버튼3" onmouseover="f3()">
+	<input type="text" name="txt1" onfocus="f4()">
+	<input type="text" name="txt2" onblur="f5()">
+	<input type="text" name="txt" onkeyup="f6()">
+</body>
+</html>
