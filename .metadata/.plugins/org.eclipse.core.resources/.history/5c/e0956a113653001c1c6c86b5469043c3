@@ -11,33 +11,18 @@
 	/* function 함수이름() {
 		//자주사용하는 기능
 	   }*/
+	var b =   
 	function fx() {
 		alert("함수호출");
 		var a=10;
-		var b=20;// 원래는 함수내의 변수만 함수에 사용가능
+		var b=20;
 		alert(a+b);
 		alert(a-b);
 		alert(a*b);
 		alert(a/b);
 	}
-// 	fx();  
+	fx();  
 	
-	function fx2(a,b) {
-		alert("함수호출");
-		alert(a+b);
-		alert(a-b);
-		alert(a*b);
-		alert(a/b);
-		return;//생략
-	}
-	fx2(10, 20);
-	
-	function fx3(a,b){
-		alert("함수호출3");
-		return a*b, a/b;//생략안됨. 값은 마지막 하나만 리턴가능
-	}
-	
-	alert(fx3(10,30))
 	
 </script>
 </head>

@@ -34,10 +34,8 @@
 	
 	function fx3(a,b){
 		alert("함수호출3");
-		return a*b, a/b;//생략안됨. 값은 마지막 하나만 리턴가능
+		return a*b;//생략안됨. 값은 하나만 리턴가능
 	}
-	
-	alert(fx3(10,30))
 	
 </script>
 </head>
