@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test9.hmtl</title>
+<script type="text/javascript">
+	function f1() {
+		alert(history.length); //방문기록갯수
+	}
+	function f2() {
+		history.back();
+	}
+</script>
+</head>
+<body>
+<input type="button" value="방문기록" onclick="f1()">
+<input type="button" value="뒤로" onclick="f2()">
+</body>
+</html>

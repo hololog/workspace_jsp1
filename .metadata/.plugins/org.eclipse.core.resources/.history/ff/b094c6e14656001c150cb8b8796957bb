@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test10.html</title>
+ <script type="text/javascript">
+ 	function f1() {
+		alert(document.title);
+	}
+ </script>
+</head>
+<body>
+<input type="button" value="제목확인" onclick="f1()">
+</body>
+</html>

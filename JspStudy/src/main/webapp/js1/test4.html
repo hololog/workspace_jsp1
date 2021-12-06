@@ -6,17 +6,18 @@
 <script type="text/javascript">
 	function fun1() {
 		alert("Hello");
+		return;
 	}
 
 	function fun2(a, b) {
 		alert(2 * a + 3 * b);
+		return;
 	}
 
 	function fun3(a, b, c) {
-
 		return a + b + c;
-
 	}
+	
 	fun1(); //메시지출력
 	fun2(10, 20); //두수의 곱출력
 	alert("세수의 합 "+fun3(80, 95, 90)); //세 수를 더해서 리턴

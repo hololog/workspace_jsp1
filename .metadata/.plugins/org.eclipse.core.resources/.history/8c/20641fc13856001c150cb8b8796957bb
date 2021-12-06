@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test8.html</title>
+ <script type="text/javascript">
+//  	내장객체 계충구조로 구성
+// 			 window - location 주소줄
+// 					- history 방문기록
+					- document html(body)		 
+ </script>
+</head>
+<body>
+
+</body>
+</html>

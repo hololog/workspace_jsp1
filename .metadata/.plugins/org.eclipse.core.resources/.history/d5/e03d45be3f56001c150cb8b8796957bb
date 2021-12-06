@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test9.hmtl</title>
+<script type="text/javascript">
+	function f1() {
+		alert(history.length); //방문기록갯수
+	}
+</script>
+</head>
+<body>
+<input type="button", value="", onclick="f1()">
+</body>
+</html>

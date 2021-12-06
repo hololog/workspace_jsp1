@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test7_win.html</title>
+</head>
+<body>
+ <input type="button" value="창닫기버튼" onclick="window.close()">
+</body>
+</html>

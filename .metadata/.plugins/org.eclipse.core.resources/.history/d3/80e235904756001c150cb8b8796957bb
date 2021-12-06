@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test10.html</title>
+ <script type="text/javascript">
+ 	function f1() {
+		alert(document.title);
+	}
+ 	function f2() {
+		document.title="수업실습";	
+	}
+ 	function f3() {
+		document.bgcolor=green;	
+	}
+ </script>
+</head>
+<body>
+<input type="button" value="제목확인" onclick="f1()">
+<input type="button" value="제목변경" onclick="f2()">
+<input type="button" value="문서배경색변경" onclick="f3()">
+</body>
+</html>
