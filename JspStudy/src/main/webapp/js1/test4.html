@@ -4,27 +4,33 @@
 <meta charset="UTF-8">
 <title>js1/test4.html</title>
 <script type="text/javascript">
-	function fun1() {
-		alert("Hello");
-		return;
-	}
 
-	function fun2(a, b) {
-		alert(2 * a + 3 * b);
-		return;
-	}
+// 함수 정의  : 자주사용하는 기능을 모아 이름을 부여해서 정의 
+function fun1() {
+	alert('안녕하세요');
+	return;
+}
 
-	function fun3(a, b, c) {
-		return a + b + c;
-	}
-	
-	fun1(); //메시지출력
-	fun2(10, 20); //두수의 곱출력
-	alert("세수의 합 "+fun3(80, 95, 90)); //세 수를 더해서 리턴
-	alert("평균 "+fun3(80, 95, 90)/3);//평균
+function fun2(a, b) {
+	alert(2*a + 3*b);
+	return;
+}
 
+function fun3(x,y,z) {
+
+	return x+y+z;
+}
+// 함수이름 호출
+fun1(); // => "안녕하세요" => 메시지 출력 
+
+fun2(10,20); //  2*a + 3*b => 계산결과 출력
+
+alert("합 : "+fun3(80,95,90)); // 세수 합 => 계산결과 리턴
+
+alert("평균 : "+fun3(80,95,90)/3); // 세수 합 => 계산결과 리턴
 </script>
 </head>
 <body>
+
 </body>
 </html>

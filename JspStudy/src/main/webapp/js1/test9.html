@@ -2,28 +2,46 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>js1/test9.hmtl</title>
+<title>js1/test9.html</title>
 <script type="text/javascript">
-	function f1() {
-		alert(history.length); //방문기록갯수
-	}
-	function f2() {
-		alert("뒤로이동");
-		history.back();
-	}
-	function f3() {
-		alert("앞으로 이동");
-		history.forward();
-	}
-	function f4() {
-		location.href="test9_1.html";
-	}
+// 내장객체 window 윈도우창  - location 주소줄
+//                       - history 방문기록    
+//                       - document html(body)문서 - image , ..
+//                                                - form
+
+//내장객체 window 생략가능
+//내장객체 window.history => 큰 주제 : 웹브라우저 창 안에 있는 방문기록 제어
+//내장객체 window.history => 멤버변수 length 방문기록 개수 저장하는 변수 ,
+//                         멤버함수 back() 한칸 뒤로이동 함수()
+//                                forward() 한칸 앞으로이동 함수()
+//                             go(-2) 2칸 뒤로이동 go(3) 3칸 앞으로 이동 
+//내장객체 호출    =>history.length, history.back(), history.forward()
+//                                history.go(-2)  history.go(3)
+
+function f1() {
+	//방문한 기록의 개수
+	alert(history.length);
+}
+function f2() {
+	//한칸 뒤로이동  9.html => 8.html => 9.html 
+	alert("뒤로이동");
+	history.back();
+}
+function f3() {
+	alert("앞으로이동");
+	history.forward();
+}
+function f4() {
+	//하이퍼링크
+	location.href="test9_1.html";
+}
 </script>
 </head>
 <body>
-<input type="button" value="방문기록" onclick="f1()">
-<input type="button" value="이전페이지" onclick="f2()">
-<input type="button" value="다음페이지" onclick="f3()">
-<input type="button" value="test9_1.html로 이동" onclick="f4()">
+<input type="button" value="방문기록개수" onclick="f1()">
+<input type="button" value="한칸뒤로이동" onclick="f2()">
+<input type="button" value="한칸앞으로이동" onclick="f3()">
+<input type="button" value="test9_1.html 이동" onclick="f4()">
 </body>
 </html>
+

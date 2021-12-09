@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/Test12.html</title>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+ <form action="Test11.html" method="post">
+<!--  get은 주소줄에 정보가 보이게 -->
+  텍스트 상자 : <input type="text" name="id"><br>
+  비밀번호 상자 : <input type="password" name="pass"><br>
+  <input type="submit" value="전송">
+  <input type="button" value="버튼">
+ </form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test11.html</title>
+<script type="text/javascript">
+//내장객체 sindow.document.image = 큰 주제 : html문서안에 있는 이미지 제어
+//                               멤버변수
+//                                  src 이미지 파일 이름을 저장하는 변수
+//                                  width, height 너비높이
+//                                  border 이미지 경계 저장하는 변수
+//내장객체 호출 =>document.이미지이름.src, document.이미지이름.width, document.이미지이름.height, ducument.이미지이름.border  
+
+	function f1() {
+		alert(document.img1.src);
+		alert(document.img1.width);
+		alert(document.img1.height);
+		alert(document.img1.border);
+	}
+	
+	function f2() {
+		document.img1.src="3.jpg";
+		document.img1.width="200";
+		document.img1.height="200";
+		documetn.img1.border="10;"
+	}
+	function f3() {
+		alert("이미지변경")//src 4.jpg변경
+		document.img2.src="3.jpg";
+		document.img2.border="3";
+	}
+</script>
+</head>
+<body>
+ <input type="button" value="img1정보" onclick="f1()">
+ <input type="button" value="img1정보변경" onclick="f2()">
+ <img src="1.jpg" width="200" height="300" border="5" name="img1">
+ <img src="2.jpg" border="5" name="img2" onclick="f3()">
+<!--  <img src="3.jpg"> -->
+<!--  <img src="4.jpg"> -->
+<!--  <img src="5.jpg"> -->
+</body>
+</html>

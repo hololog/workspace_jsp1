@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test13.html</title>
+<script type="text/javascript">
+//내장객체 계충구조로 구성
+// window - location 주소줄
+//		- history 방문기록
+//		- document html(body) image
+                              form - text password textarea
+                                   - raido checkbox
+                                   -select
+                              
+</script>
+</head>
+<body>
+ <form action="a.jsp" method="get">
+  텍스트 상자 : <input type="text" name="id"><br>
+<!--   비밀번호 상자 : <input type="password" name="pass" value="1234"><br> -->
+<!--   긴 텍스트 박스 : <textarea rows="10" cols="20" name="ta">값</textarea><br> -->
+  <input type="button" value="폼태그 정보확인 버튼"><br>
+ 
+ </form>
+</body>
+</html>

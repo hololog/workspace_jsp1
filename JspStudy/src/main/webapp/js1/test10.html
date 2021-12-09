@@ -3,27 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>js1/test10.html</title>
- <script type="text/javascript">
- 	function f1() {
-		alert(document.title);
-	}
- 	function f2() {
-		document.title="수업실습";	
-	}
- 	function f3() {
-		document.bgColor="green";	
-	}
- 	function f4() {
-		document.bgColor="light grey";	
-	}
- 	
- 	document.write("출력할 내용");
- </script>
+<script type="text/javascript">
+//내장객체 window 윈도우창  - location 주소줄
+//                      - history 방문기록    
+//                      - document html(body)문서 틀 - image , ..
+//                                                  - form
+
+//내장객체 window 생략가능
+//내장객체 window.document => 큰 주제 : 웹브라우저 창 안에 있는 html(body) 제어
+//내장객체 window.document => 멤버변수 title html문서 제목 저장하는 변수 ,
+//                                 bgColor 문서의 배경색을 저장하는 변수
+//                          멤버함수 write() 문서에 내용 출력 함수()
+//내장객체 호출    =>document.title, document.bgColor,
+//                document.write(출력할 내용)
+function f1() {
+	alert(document.title);
+}
+function f2() {
+	//a=10;
+	document.title="제목";
+}
+function f3() {
+	// 문서에 배경색을 저장한 변수 bgColor
+	document.bgColor="yellow";
+}
+// html문서 내 출력
+document.write("출력할 내용");
+</script>
 </head>
 <body>
 <input type="button" value="제목확인" onclick="f1()">
 <input type="button" value="제목변경" onclick="f2()">
 <input type="button" value="문서배경색변경" onclick="f3()">
-<input type="button" value="문서배경색변경" onclick="f4()">
 </body>
 </html>
+
