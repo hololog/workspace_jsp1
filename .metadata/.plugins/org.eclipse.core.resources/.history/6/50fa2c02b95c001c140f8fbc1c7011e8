@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test16.html</title>
+ <script type="text/javascript">
+//내장객체 window 윈도우창   - location 주소줄
+//- history 방문기록    
+//- document html 틀 - image , ..
+//                  - form - text,password,textarea
+//                         - radio, checkbox
+//                         - select
+//내장객체 window 생략가능
+//내장객체 window.document.폼태그.목록상자이름    => 큰 주제 : html문서안에 있는 폼태그안의 목록 상자제어
+//								          => 멤버변수 
+//                                           type 목록 상자타입을 저장하는 변수 ,
+								//           value 입력된 값을 저장하는 변수,
+								//			 selectedIndex 목록상자의 선택된 인덱스 값 저장
+								//        => 멤버함수(메서드)
+								//           focus() 목록상자 포커스기능
+//내장객체 호출    =>document.폼태그.목록상자이름.type, 
+//               document.폼태그.목록상자이름.value,
+//               document.폼태그.목록상자이름.selectedIndex, 
+//               document.폼태그.목록상자이름.focus() 
+	
+	function f1() {
+		alert(document.fr.sel.type);
+		alert(document.fr.sel.value);
+		alert(document.fr.sel.selectedIndex);
+		document.fr.sel.focus();
+	}
+	
+	function f2() {
+		if(document.fr.sel.value==""){
+			alert("선택하세요");
+			document.fr.sel.focus();
+			return;
+		}		
+		
+		document.fr.submit();
+	}
+	
+	function f3() {
+		if(document.fr.sel.selectedIndex==0){
+			alert("선택하세요");
+			document.fr.sel.focus();
+			return;
+		}		
+		
+		document.fr.submit();
+	}
+ 
+ </script>
+</head>
+<body>
+ <form action="a.jsp" method="get" name="fr">
+ 	목록상자: <select name="sel">
+ 			<option value="000">선택하세요</option>
+ 			<option value="100">목록1</option>
+ 			<option value="200">목록2</option>
+ 			<option value="300">목록3</option>
+ 		   </select>
+ 		   <input type="button" value="목록상자 정보확인" onclick="f1()">
+ 		   <input type="button" value="목록상자 제어" onclick="f2()">
+ 		   <input type="button" value="목록상자 제어" onclick="f3()">
+ </form>
+</body>
+</html>

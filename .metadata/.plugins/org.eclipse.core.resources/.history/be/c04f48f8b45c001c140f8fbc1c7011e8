@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test16.html</title>
+ <script type="text/javascript">
+//내장객체 window 윈도우창   - location 주소줄
+//- history 방문기록    
+//- document html 틀 - image , ..
+//                  - form - text,password,textarea
+//                         - radio, checkbox
+//                         - select
+ 
+ 
+ 
+ </script>
+</head>
+<body>
+ <form action="a.jsp" method="get" name="fr">
+ 	목록상자: <select>
+ 			<option value="1">목록1</option>
+ 			<option value="2">목록2</option>
+ 			<option value="3">목록3</option>
+ 		   </select>
+ </form>
+</body>
+</html>

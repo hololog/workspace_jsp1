@@ -7,6 +7,6 @@
 <title>js1/a.jsp</title>
 </head>
 <body>
- <h1>js1/a.jsp</h1>
+<h1>js1/a.jsp</h1>
 </body>
 </html>

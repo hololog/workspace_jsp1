@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test15.html</title>
+<script type="text/javascript">
+//내장객체 window 윈도우창   - location 주소줄
+//- history 방문기록    
+//- document html 틀 - image , ..
+//                   - form - text,password,textarea
+//                          - radio, checkbox
+//                           - select
+
+</script>
+</head>
+<body>
+	<form action="a.jsp" method="get">
+	 라디오 상자: <input type="radio" name="ra" value="1">남(화면)
+           	   <input type="radio" name="ra" value="2">여(화면)<br>
+     체크박스 상자:<input type="checkbox" name="ch" value="여행">여행(화면)
+               <input type="checkbox" name="ch" value="게임">게임(화면)<br>
+	
+			   <input type="button" value="라디오박스정보확인">	
+	</form>
+</body>
+</html>

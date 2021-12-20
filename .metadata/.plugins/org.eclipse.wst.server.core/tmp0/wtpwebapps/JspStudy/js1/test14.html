@@ -56,20 +56,88 @@
 	    alert("다시입력해");
 		document.fr.ta.value="";  
 		document.fr.ta.focus();
+		
+	}
+	
+	function f7() {
+		//텍스트 상자가 비어있으면
+// 		alert(documetn.fr.id.value);
+// 		if(document.fr.id.value==""){
+// 			alert("텍스트 입력하세요");
+// 			//텍스트상자 포커스
+// 			document.fr.id.focus();
+// 		} else if(document.fr.pass.value=="") {
+// 			alert("비밀번호 입력하세요");
+// 			document.fr.pass.focus();
+// 		} else if(document.fr.ta.vlaue==""){
+// 			alert("긴 텍스트상작 입력핫요");
+// 			 document.fr.ta.focus();
+// 		} else {
+// 			//폼태그 전체를 서버에 전송
+// 			document.fr.submit();
+// 		}
+
+
+		//else 삭제
+// 		if(document.fr.id.value==""){
+// 			alert("텍스트 입력하세요");
+// 			//텍스트상자 포커스
+// 			document.fr.id.focus();
+// 			return;
+// 		if(document.fr.pass.value=="") {
+// 			alert("비밀번호 입력하세요");
+// 			document.fr.pass.focus();
+// 			return;
+// 		} 
+// 		if(document.fr.ta.value==""){
+// 			alert("긴 텍스트상작 입력핫요");
+// 			 document.fr.ta.focus();
+// 			 return;
+// 		}  
+// 			//폼태그 전체를 서버에 전송
+// 			document.fr.submit();
+// 			return;
+
+
+
+
+
+		//덱스트 상자 글자제한 = 글자길이는 문자열의 내장객체를 이용
+		if(document.fr.id.value.length!=5){
+			alert("다섯자 이상 입력하세요");
+			document.fr.id.focus();
+			return;
+			
+		}
+		if(document.fr.pass.value.length<8) {
+			alert("8자리 이상 입력하세요");
+			document.fr.pass.focus();
+			return;
+		} 
+		if(document.fr.ta.value.length<10 || document.fr.ta.value.length>20){
+			alert("10~20자 입력하세요");
+			 document.fr.ta.focus();
+			 return;
+		}  
+			//폼태그 전체를 서버에 전송
+			document.fr.submit();
+			return;
+				
 	}
  </script>
 </head>
 <body>
  <form action="a.jsp" method="get" name="fr">
-	텍스트 상자 :<input type="text" name="id" value="값"><br>
+	텍스트 상자 :<input type="text" name="id"><br>
 				<input type="button" value="택스트상자 정보확인 버튼" onclick="f1()"><br>
 				<input type="button" value="택스트상자 입력값변경 버튼" onclick="f2()"><br>
-	비밀번호 상자 : <input type="password" name="pass" value="1234"><br>
+	비밀번호 상자 : <input type="password" name="pass"><br>
 				<input type="button" value="비밀번호상자 정보확인 버튼" onclick="f3()"><br>
 				<input type="button" value="비밀번호상자 입력값변경 버튼" onclick="f4()"><br>
 	긴텍스트 상자 : <textarea rows="10" cols="20" name="ta">값</textarea><br>
 				<input type="button" value="긴텍스트상자 정보확인 버튼" onclick="f5()"><br>
 				<input type="button" value="긴택스트상자 입력값변경 버튼" onclick="f6()"><br>
+				<input type="button" value="텍스트상자 제어" onclick="f7()">
  </form>
 </body>
 </html>

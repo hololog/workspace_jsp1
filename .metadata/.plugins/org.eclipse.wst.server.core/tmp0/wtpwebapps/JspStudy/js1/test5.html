@@ -4,20 +4,23 @@
 <meta charset="UTF-8">
 <title>js1/test5.html</title>
 <script type="text/javascript">
-	// 	내장함수 자바스크립트에 있는 함수
+// 내장함수 : 자바스크립트를 만들때 만들어놓은 함수
 
-	// 메세지 출력하는 내장함수 호출
-	// alert(10);
+// 메시지 출력하는  내장함수 호출 
+// alert(10);
 
-	// 내장함수 호출시 값을 입력받아서 
-	var a = prompt(); //입력값은 문자열로
-	alert(a + 22); //문자열로 
-	alert(parseInt(a) + 22); //정수로 계산가능
-	alert(parseFloat(a) + 22); //실수형\
-	
-	
+// 내장함수 호출할때 값(문자)을 입력받는 함수   안녕  5     3.5
+var a = prompt();
+alert(a+100); //문자+숫자 연결      안녕100     5100     3.5100
+// 문자를 숫자(정수형)로 변경 하는 내장함수 parseInt()
+alert(parseInt(a)+100); //숫자+숫자 더하기   NaN 105      3+100=> 103
+// 문자를 숫자(실수형)로 변경 하는 내장함수 parseFloat()
+alert(parseFloat(a)+100); //숫자+숫자 더하기  NaN 105    3.5+100=> 103.5
+
+// NaN => Not a Number  => 문자 
 </script>
 </head>
 <body>
+
 </body>
 </html>

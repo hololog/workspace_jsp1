@@ -4,38 +4,41 @@
 <meta charset="UTF-8">
 <title>js1/test6.html</title>
 <script type="text/javascript">
-// 	이벤트
-	function f1() {
-		alert('메시지1');
-		alert('메시지2');
-		alert('메시지3');
-	}
-	function f2() {
-		alert("버튼2 더블클릭!")
-	}
-	function f3() {
-		alert("버튼3 마우스오버")
-	}
-	function f4() {
-		alert("텍스트상자 활성화")
-	}
-	function f5() {
-		alert("텍스트상자 비활성화")
-	}
-	function f6() {
-		alert("누르고 놓았을때")
-	}
-	function f7() {
-		alert("문서를 불렀을때")
-	}
+function f1() {
+	alert('메시지1'); 
+	alert('메시지2'); 
+	alert('메시지3'); 
+	alert('메시지4'); 
+	alert('메시지5');
+}
+function f2() {
+	alert("버튼2 더블클릭");
+}
+function f3() {
+	alert("버튼3 마우스오버");
+}
+function f4() {
+	alert("텍스트 상자 활성화");
+}
+function f5() {
+	alert("텍스트 상자 활성화 해제");
+}
+function f6() {
+	alert("키보드 누르고 놓았을때");
+}
+function f7() {
+	alert("문서를 불러면 실행");
+}
 </script>
 </head>
 <body onload="f7()">
-	<input type="button" value="버튼1" onclick="f1()">
-	<input type="button" value="버튼2" ondblclick="f2()">
-	<input type="button" value="버튼3" onmouseover="f3()">
-	<input type="text" name="txt1" onfocus="f4()">
-	<input type="text" name="txt2" onblur="f5()">
-	<input type="text" name="txt" onkeyup="f6()">
+<input type="button" value="버튼1" onclick="f1()">
+<input type="button" value="버튼2" ondblclick="f2()">
+<input type="button" value="버튼3" onmouseover="f3()">
+<input type="text" name="txt1" onfocus="f4()">
+<input type="text" name="txt2" onblur="f5()">
+<input type="text" name="txt3" onkeyup="f6()">
 </body>
 </html>
+
+
