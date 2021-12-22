@@ -27,11 +27,22 @@ http://localhost:8080/JspStudy/jsp1/testPro1.jsp?name=kim&num=8
  request객체(멤버변수, 멤버함수) 정의
  request안에 name=kim&num=8 저장
  request에서 출력하기 위해서 가지고 옴
-
+ 
+ request에는 모두 문자열로 저장
 */
 %>
-<%=request.getParameter("name")%>
-<%=request.getParameter("num")%>
+이름 : <%=request.getParameter("name")%><br>
+좋아하는 숫자 : <%=request.getParameter("num")%><br>
+<%
+String sname=request.getParameter("name");
+int snum=Integer.parseInt(request.getParameter("num"));
+%>
+변수에 저장한 이름 : <%=sname%><br>
+변수에 저장한 좋아하는 숫자 : <%=snum%><br>
+변수에 저장한 좋아하는 숫자+100 : <%=snum+100%><br>
+<%
+//참조형을 기본형으로 형변환
+%>
 
 </body>
 </html>
