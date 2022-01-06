@@ -41,6 +41,7 @@ if(rs.next()){
 	pstmt=con.prepareStatement(sql);
 	pstmt.setString(1,id);
 	pstmt.executeUpdate();
+	session.invalidate();///////////??? 초기화 이유
 	response.sendRedirect("main.jsp");
 } else{
 	%>
