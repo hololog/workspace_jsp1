@@ -9,7 +9,7 @@
 <body>
 <%
 String id=(String)session.getAttribute("id");
-//세션값이 비어있으면 (null이면 ) =>loginForm.jsp 이동
+//세션값이 비어있으면 (null이면 ) =>loginForm.jsp 이동  //리턴 타입은 Object
 if(id==null){
 	response.sendRedirect("loginForm.jsp");
 }
