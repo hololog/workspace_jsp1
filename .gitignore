@@ -132,3 +132,14 @@ $RECYCLE.BIN/
 .metadata/.log
 .metadata/.log
 .metadata/.plugins/org.eclipse.core.resources/.history/1/c0b92d28a45c001c140f8fbc1c7011e8
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/Charsets.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/3-0-Compat.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/5-0-Compat.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/clusterBase.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/fullDebug.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/coldFusion.properties
+JspStudy/src/main/webapp/WEB-INF/mysql-connector-java-5.1.39-bin/com/mysql/jdbc/configs/maxPerformance.properties
+*.properties
+*.LIST
+*.MF
+*.Driver
