@@ -7,11 +7,14 @@
 <title>member/loginForm.jsp</title>
 </head>
 <body>
+<h1>로그인</h1>
 <form action="loginPro.jsp" method="post">
-아이디 :<input type="text" name="id"><br>
-비밀번호 :<input type="password" name="pass"><br>
-  <input type="submit" value="로그인" >
-
+<fieldset>
+ <legend>sign in</legend>
+ 	<label for="id">아이디 : </label> <input type="text" name="id" id="id"><br>
+ 	<label for="pass">비밀번호 : </label> <input type="password" name="pass" id="pass">
+  	<input type="submit" value="로그인">
+</fieldset>
 </form>
 </body>
 </html>
