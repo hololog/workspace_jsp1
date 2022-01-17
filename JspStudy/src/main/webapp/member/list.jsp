@@ -1,5 +1,5 @@
+<%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
-<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,18 +21,18 @@ if(id==null){%>
 
 MemberDAO mDAO=new MemberDAO();
 
-ResultSet rs=mDAO.showList();
+MemberDTO[] mDTO=mDAO.showList();
 %>
 <table border="1">
 	<tr>
 		<th>아이디</th><th>비밀번호</th><th>이름</th><th>가입일</th>
 	</tr>
-	<%while(rs.next()){%>
+	<%for(MemberDTO m:mDTO){%>
 	<tr>
-		<td><%=rs.getString("id") %></td>
-		<td><%=rs.getString("pass") %></td>
-		<td><%=rs.getString("name") %></td>
-		<td><%=rs.getDate("date") %></td>
+		<td><%=m.getId() %></td>
+		<td><%=m.getPass() %></td>
+		<td><%=m.getName() %></td>
+		<td><%=m.getDate() %></td>
 	</tr>
 	<%}%>
 	<tr>

@@ -1,4 +1,3 @@
-<%@page import="java.sql.ResultSet"%>
 <%@page import="member.MemberDAO"%>
 <%@page import="member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,20 +11,23 @@
 <body>
 <%
 request.setCharacterEncoding("UTF-8");
+String id=request.getParameter("id");
+String pass=request.getParameter("pass");
+String name=request.getParameter("name");
+String pass1=request.getParameter("pass1");
+String pass2=request.getParameter("pass2");
 
-MemberDTO mDTO=new MemberDTO();
 MemberDAO mDAO=new MemberDAO();
+MemberDTO mDTO=mDAO.userCheck(id, pass);
 
-mDTO.setId(request.getParameter("id"));
-mDTO.setName(request.getParameter("name"));
-mDTO.setPass(request.getParameter("pass"));
-mDTO.setPass1(request.getParameter("pass1"));
-mDTO.setPass2(request.getParameter("pass2"));
-
-if(mDTO.getPass1().equals(mDTO.getPass2())) {
-	
-	if(mDAO.verifyPass(mDTO)) {
-		mDAO.updateMem(mDTO);
+if(pass1.equals(pass2)) {
+	if(mDTO!=null) {
+		MemberDTO updateDTO=new MemberDTO();
+		updateDTO.setId(id);
+		updateDTO.setPass(pass1);
+		updateDTO.setName(name);
+		
+		mDAO.updateMem(updateDTO);
 		response.sendRedirect("info.jsp");
 	} else {%>
 		<script type="text/javascript">

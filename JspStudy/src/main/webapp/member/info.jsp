@@ -1,4 +1,3 @@
-<%@page import="java.sql.ResultSet"%>
 <%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,25 +19,43 @@ if(id==null){%>
 	</script>
 <%}
 
-MemberDTO mDTO=new MemberDTO();
 MemberDAO mDAO=new MemberDAO();
+MemberDTO mDTO=mDAO.getInfo(id);
 
-mDTO.setId(id);
-ResultSet rs=mDAO.getInfo(mDTO);
-
-if(rs.next()) {%>
+if(mDTO!=null) {%>
 	<h1>회원정보</h1>
 	 <fieldset>
 	 	<legend>상세정보</legend>
-			아이디 : <%=rs.getString("id") %><br><br>
-			이름 : <input type="text" name="name" value="<%=rs.getString("name") %>" readonly><br><br>
-			비밀번호 : <input type="text" name="pass" value="<%=rs.getString("pass") %>" readonly><br><br>
-			가입일 : <%=rs.getDate("date") %><br><br>
+			아이디 : <%=mDTO.getId() %><br><br>
+			이름 : <input type="text" name="name" value="<%=mDTO.getName() %>" readonly><br><br>
+			비밀번호 : <input type="text" name="pass" value="<%=mDTO.getPass() %>" readonly><br><br>
+			가입일 : <%=mDTO.getDate() %><br><br>
 	 		<input type="button" value="메인으로" onclick="location.href='main.jsp'">
 	 		<input type="button" value="회원정보 수정" onclick="location.href='updateForm.jsp'">
 	 </fieldset>
 <%	
 }
 %>
+<%
+// mDTO.setId(id);
+// ResultSet rs=mDAO.getInfo(mDTO);
+// ResultSet rs=mDAO.getInfo(mDTO);
+//if(rs.next()) {
+%>
+<!-- 	<h1>회원정보</h1> -->
+<!-- 	 <fieldset> -->
+<!-- 	 	<legend>상세정보</legend> -->
+<%-- 			아이디 : <%=rs.getString("id") %><br><br> --%>
+<%-- 			이름 : <input type="text" name="name" value="<%=rs.getString("name") %>" readonly><br><br> --%>
+<%-- 			비밀번호 : <input type="text" name="pass" value="<%=rs.getString("pass") %>" readonly><br><br> --%>
+<%-- 			가입일 : <%=rs.getDate("date") %><br><br> --%>
+<!-- 	 		<input type="button" value="메인으로" onclick="location.href='main.jsp'"> -->
+<!-- 	 		<input type="button" value="회원정보 수정" onclick="location.href='updateForm.jsp'"> -->
+<!-- 	 </fieldset> -->
+<%	
+//}
+%>
+
+
 </body>
 </html>

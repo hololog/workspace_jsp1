@@ -1,4 +1,3 @@
-<%@page import="java.sql.ResultSet"%>
 <%@page import="member.MemberDAO"%>
 <%@page import="member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,19 +19,17 @@ if(id==null){%>
 </script>
 <%}
 
-MemberDTO mDTO=new MemberDTO();
 MemberDAO mDAO=new MemberDAO();
 
-mDTO.setId(id);
-ResultSet rs=mDAO.getInfo(mDTO);
+MemberDTO mDTO=mDAO.getInfo(id);
 
-if(rs.next()) {%>
+if(mDTO!=null) {%>
 	<h1>회원정보수정</h1>
 	<form action="updatePro.jsp" method="post">
 	 <fieldset>
 	 	<legend>수정사항</legend>
-			아이디 : <input type="text" name="id" value="<%=rs.getString("id") %>" readonly><br><br>
-			수정할 이름 : <input type="text" name="name" value="<%=rs.getString("name") %>"><br><br>
+			아이디 : <input type="text" name="id" value="<%=mDTO.getId() %>" readonly><br><br>
+			수정할 이름 : <input type="text" name="name" value="<%=mDTO.getName() %>"><br><br>
 			기존 비밀번호 확인: <input type="password" name="pass"><br><br>
 			비밀번호 변경: <input type="password" name="pass1"><br><br>
 			변경 비밀번호 확인: <input type="password" name="pass2"><br><br>

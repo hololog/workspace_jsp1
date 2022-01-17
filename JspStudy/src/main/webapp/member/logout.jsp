@@ -9,7 +9,11 @@
 <body>
 <%
 session.invalidate();
-response.sendRedirect("login.jsp");
+// response.sendRedirect("login.jsp");
 %>
+<script type="text/javascript">
+	alert("로그아웃");
+	location.href="loginForm.jsp";
+</script>
 </body>
 </html>

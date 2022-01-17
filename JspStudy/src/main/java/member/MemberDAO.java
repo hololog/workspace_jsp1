@@ -9,44 +9,24 @@ import java.sql.SQLException;
 public class MemberDAO {//(data access object)
 	//멤버변수
 	Connection con;
-	String sql;
 	PreparedStatement pstmt;
+	ResultSet rs;
+	String sql = "";
 	
-	String dbId;
-	String dbPass;
-	String dbUrl;
-	
-	//생성자 ///자습
-	public MemberDAO() {
-		try {
+	public Connection getConnection() throws Exception {
 			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} 
-		dbId="root";
-		dbPass="1234";
-		dbUrl="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
-		
-	}
-	
-	//멤버함수(메서드)
-	//자바파일에 메서드 만들기
-	//회원가입 (insert) => 매개변수로 값받기
-//	public void insertMem(String id, String pass, String name, Timestamp date) {
-	public void insertMem(MemberDTO mDTO) {
-		System.out.println("MemberDAO의 insertMember() 호출!");
-		System.out.println(mDTO.getId() + "," + mDTO.getPass() + "," 
-		                 + mDTO.getName() + "," + mDTO.getDate());
-		  
-		try {//예외처리
-			//1.드라이버 로더 
-//			Class.forName("com.mysql.jdbc.Driver");
-			//2.db연결
-//			String dbId="root";
-//			String dbPass="1234";
-//			String dbUrl="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
+			
+			String dbId = "root";
+			String dbPass = "1234";
+			String dbUrl = "jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
 			con = DriverManager.getConnection(dbUrl,dbId, dbPass);
-			//3.sql작성
+			
+			return con;
+		}
+
+	public void insertMem(MemberDTO mDTO) {
+		try {
+			con = getConnection();
 			sql = "insert into member(id,pass,name,date) values(?,?,?,?);";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mDTO.getId());
@@ -55,8 +35,6 @@ public class MemberDAO {//(data access object)
 			pstmt.setTimestamp(4, mDTO.getDate());
 			//4.sql 실행
 			pstmt.executeUpdate();
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -64,28 +42,154 @@ public class MemberDAO {//(data access object)
 		} 
 		return;
 	}//insertMember()
-
-	public void loginMem(MemberDTO mDTO) {
-		try {
-			con = DriverManager.getConnection(dbUrl, dbId, dbPass);
-			sql = "select * from member where id=? and pass=?";
-			 pstmt = con.prepareStatement(sql);
-			 pstmt.setString(1, mDTO.getId());
-			 pstmt.setString(2, mDTO.getPass());
-
-			 ResultSet rs = pstmt.executeQuery();
+	
+	public MemberDTO userCheck(String id, String pass) {
+		MemberDTO mDTO = null;
+		try { 
+			con = getConnection();
+			sql = "SELECT * FROM member WHERE id=? and pass=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDTO = new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				return mDTO;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 5단계 다음행으로 이동 데이터 있으면(true) => 아이디 비밀번호 일치
-//		                         없으면 false => 아이디 비밀번호 틀림 
-		// if(rs.next()){
-//		 	//true 일치  => 로그인인증 => 세션값 생성(중복되지 않는 값) => 페이지 상관없이 값유지 => main.jsp 이동
-//		 	out.println("일치");
-//		 	session.setAttribute("id", id);
-//		 	response.sendRedirect("main.jsp");
-		// }else{
-			//false 틀림 => "입력하신 정보 틀림"  뒤로이동
-//		 	out.println("틀림");
+		return mDTO;		
+		
 	}
+
+	public MemberDTO getInfo(String id) {
+		MemberDTO mDTO = null;
+		try {
+			con = getConnection();
+			sql = "SELECT * FROM member WHERE id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDTO = new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				return mDTO;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mDTO;
+	}
+	//이전
+//	public ResultSet getInfo(MemberDTO mDTO) {
+//		try {
+//			sql = "SELECT * FROM member WHERE id=?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1,mDTO.getId());
+//			rs = pstmt.executeQuery();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return rs;
+//	}
+
+	public MemberDTO[] showList() {
+		MemberDTO[] mDTO = null;
+		int size = 0;
+		try {
+			con = getConnection();
+			sql = "SELECT count(id) as size FROM member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				size=rs.getInt("SIZE");
+			}
+			mDTO = new MemberDTO[size];
+			sql = "SELECT * FROM member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			for(int i=0; rs.next(); i++) {
+				mDTO[i].setId(rs.getString("id"));
+				mDTO[i].setPass(rs.getString("pass"));
+				mDTO[i].setName(rs.getString("name"));
+				mDTO[i].setDate(rs.getTimestamp("date"));
+			}
+			return mDTO;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mDTO;
+	}	
+
+	public void updateMem(MemberDTO updateDTO) {
+		try {
+			con = getConnection();
+			sql = "UPDATE member set pass=?, name=? WHERE id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,updateDTO.getPass());
+			pstmt.setString(2,updateDTO.getName());
+			pstmt.setString(3,updateDTO.getId());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteMem(MemberDTO mDTO) {
+		try {
+			con = getConnection();
+			sql="DELETE FROM member WHERE id=?";
+			PreparedStatement pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,mDTO.getId());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
