@@ -18,9 +18,9 @@ String id=request.getParameter("id");
 String pass=request.getParameter("pass");
 String name=request.getParameter("name");
 String email=request.getParameter("email");
-String address=request.getParameter("adrress");
+String address=request.getParameter("address");
 String phone=request.getParameter("phone");
-String mobile=request.getParameter("moblie");
+String mobile=request.getParameter("mobile");
 // 시스템에 있는 날짜와 시간 가져오기 => Timestamp내장객체 생성
 Timestamp date=new Timestamp(System.currentTimeMillis());
 // 패키지(폴더) member 파일 MemberDTO 만들기
@@ -32,6 +32,7 @@ mDTO.setId(id);
 mDTO.setPass(pass);
 mDTO.setName(name);
 mDTO.setEmail(email);
+mDTO.setDate(date);
 mDTO.setAddress(address);
 mDTO.setPhone(phone);
 mDTO.setMobile(mobile);
