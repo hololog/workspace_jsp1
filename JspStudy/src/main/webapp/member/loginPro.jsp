@@ -22,7 +22,8 @@ if(mDTO!=null){
 	session.setAttribute("id",mDTO.getId());
 	response.sendRedirect("main.jsp");
 } else {
-	out.print("틀림");%>
+	out.print("틀림");
+%>
 	<script type="text/javascript">
 		alert("회원정보가 일치하지 않습니다.");//아이디는 일치하는 경우 생각해보기
 		history.back();

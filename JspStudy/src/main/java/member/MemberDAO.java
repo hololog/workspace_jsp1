@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MemberDAO {//(data access object)
 	//멤버변수
-	Connection con;
-	PreparedStatement pstmt;
-	ResultSet rs;
-	String sql = "";
+	private Connection con = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 	
 	public Connection getConnection() throws Exception {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -23,11 +23,35 @@ public class MemberDAO {//(data access object)
 			
 			return con;
 		}
+	
+	public void dbClose() {
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(con!=null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(rs!=null) {
+			try {
+				rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void insertMem(MemberDTO mDTO) {
 		try {
 			con = getConnection();
-			sql = "insert into member(id,pass,name,date) values(?,?,?,?);";
+			String sql = "insert into member(id,pass,name,date) values(?,?,?,?);";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mDTO.getId());
 			pstmt.setString(2, mDTO.getPass());
@@ -39,7 +63,9 @@ public class MemberDAO {//(data access object)
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			dbClose();
+		}
 		return;
 	}//insertMember()
 	
@@ -47,7 +73,7 @@ public class MemberDAO {//(data access object)
 		MemberDTO mDTO = null;
 		try { 
 			con = getConnection();
-			sql = "SELECT * FROM member WHERE id=? and pass=?";
+			String sql = "SELECT * FROM member WHERE id=? and pass=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
@@ -63,6 +89,8 @@ public class MemberDAO {//(data access object)
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
 		return mDTO;		
 		
@@ -72,7 +100,7 @@ public class MemberDAO {//(data access object)
 		MemberDTO mDTO = null;
 		try {
 			con = getConnection();
-			sql = "SELECT * FROM member WHERE id=?";
+			String sql = "SELECT * FROM member WHERE id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
@@ -87,6 +115,8 @@ public class MemberDAO {//(data access object)
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
 		return mDTO;
 	}
@@ -103,40 +133,36 @@ public class MemberDAO {//(data access object)
 //		return rs;
 //	}
 
-	public MemberDTO[] showList() {
-		MemberDTO[] mDTO = null;
-		int size = 0;
+	public ArrayList<MemberDTO> showList() {
+		ArrayList<MemberDTO> mlist = new ArrayList<MemberDTO>();
+
 		try {
 			con = getConnection();
-			sql = "SELECT count(id) as size FROM member";
+			String sql = "SELECT * FROM member";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
-				size=rs.getInt("SIZE");
+			while(rs.next()) {
+				MemberDTO mDTO = new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				mlist.add(mDTO);
 			}
-			mDTO = new MemberDTO[size];
-			sql = "SELECT * FROM member";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			for(int i=0; rs.next(); i++) {
-				mDTO[i].setId(rs.getString("id"));
-				mDTO[i].setPass(rs.getString("pass"));
-				mDTO[i].setName(rs.getString("name"));
-				mDTO[i].setDate(rs.getTimestamp("date"));
-			}
-			return mDTO;
+				
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
-		return mDTO;
+		return mlist;
 	}	
 
 	public void updateMem(MemberDTO updateDTO) {
 		try {
 			con = getConnection();
-			sql = "UPDATE member set pass=?, name=? WHERE id=?";
+			String sql = "UPDATE member set pass=?, name=? WHERE id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,updateDTO.getPass());
 			pstmt.setString(2,updateDTO.getName());
@@ -150,12 +176,14 @@ public class MemberDAO {//(data access object)
 	public void deleteMem(MemberDTO mDTO) {
 		try {
 			con = getConnection();
-			sql="DELETE FROM member WHERE id=?";
+			String sql="DELETE FROM member WHERE id=?";
 			PreparedStatement pstmt=con.prepareStatement(sql);
 			pstmt.setString(1,mDTO.getId());
 			pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
 	}
 	

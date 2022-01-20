@@ -8,6 +8,8 @@ public class MemberDTO {//(data transfer object)
 	private String pass;
 	private String name;
 	private Timestamp date;
+	
+	
 	//멤버변수 접근메서드
 	public String getId() {
 		return id;
