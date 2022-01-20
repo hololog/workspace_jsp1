@@ -47,8 +47,16 @@ public class MemberDAO {
 	public void insertMem(MemberDTO mDTO) {
 		try {
 			conn=getConnetion();
-			String sql="INSERT INTO member VALUES (?,?,?,?,?,?,?)";
+			String sql="INSERT INTO member VALUES (?,?,?,?,?,?,?,?)";
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, mDTO.getId());
+			pstmt.setString(2, mDTO.getPass());
+			pstmt.setString(3, mDTO.getName());
+			pstmt.setTimestamp(4, mDTO.getDate());
+			pstmt.setString(5, mDTO.getEmail());
+			pstmt.setString(6, mDTO.getAddress());
+			pstmt.setString(7, mDTO.getPhone());
+			pstmt.setString(8, mDTO.getMobile());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
