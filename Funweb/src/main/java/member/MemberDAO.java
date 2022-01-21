@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class MemberDAO {
 	//멤버변수
 	Connection conn=null;
@@ -12,10 +16,16 @@ public class MemberDAO {
 	ResultSet rs=null;
 	
 	public Connection getConnetion() throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		String dbUrl ="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
-		conn=DriverManager.getConnection(dbUrl, "root", "1234");
+//		Class.forName("com.mysql.jdbc.Driver");
+//		String dbUrl ="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
+//		conn=DriverManager.getConnection(dbUrl, "root", "1234");
+//		
+//		return conn;
 		
+		//커넥션풀적용
+		Context init=new InitialContext();
+		DataSource ds=(DataSource) init.lookup("jdbc:comp/env/jdbc/MysqlDB");
+		conn=ds.getConnection();
 		return conn;
 	}
 	
