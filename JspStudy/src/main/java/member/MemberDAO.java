@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAO {//(data access object)
 	//멤버변수
@@ -133,8 +134,8 @@ public class MemberDAO {//(data access object)
 //		return rs;
 //	}
 
-	public ArrayList<MemberDTO> showList() {
-		ArrayList<MemberDTO> mlist = new ArrayList<MemberDTO>();
+	public List<MemberDTO> showList() {
+		List<MemberDTO> list = new ArrayList<>();
 
 		try {
 			con = getConnection();
@@ -148,7 +149,7 @@ public class MemberDAO {//(data access object)
 				mDTO.setPass(rs.getString("pass"));
 				mDTO.setName(rs.getString("name"));
 				mDTO.setDate(rs.getTimestamp("date"));
-				mlist.add(mDTO);
+				list.add(mDTO);
 			}
 				
 		} catch(Exception e) {
@@ -156,7 +157,7 @@ public class MemberDAO {//(data access object)
 		} finally {
 			dbClose();
 		}
-		return mlist;
+		return list;
 	}	
 
 	public void updateMem(MemberDTO updateDTO) {
@@ -170,6 +171,8 @@ public class MemberDAO {//(data access object)
 			pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
 	}
 	

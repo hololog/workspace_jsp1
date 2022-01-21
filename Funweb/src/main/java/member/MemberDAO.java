@@ -20,25 +20,10 @@ public class MemberDAO {
 	}
 	
 	public void dbClose() {
-		if(conn!=null) {
 			try {
-				conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(pstmt!=null) {
-			try {
-				pstmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(rs!=null)
-			try {
-				rs.close();
+				if(conn!=null) conn.close();
+				if(pstmt!=null) pstmt.close();
+				if(rs!=null) rs.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -60,6 +45,84 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+	}
+	
+	public MemberDTO userCheck(String id, String pass) {
+		MemberDTO mDTO=null;
+		
+		try {
+			conn=getConnetion();
+			String sql="SELECT * FROM member WHERE id=? and pass=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDTO=new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				mDTO.setEmail(rs.getString("email"));
+				mDTO.setAddress(rs.getString("address"));
+				mDTO.setPhone(rs.getString("phone"));
+				mDTO.setMobile(rs.getString("mobile"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		return mDTO;
+	}
+
+	public MemberDTO getMember(String id) {
+		MemberDTO mDTO=null;
+		try {
+			conn=getConnetion();
+			String sql="SELECT * FROM member WHERE id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDTO=new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				mDTO.setEmail(rs.getString("email"));
+				mDTO.setAddress(rs.getString("address"));
+				mDTO.setPhone(rs.getString("phone"));
+				mDTO.setMobile(rs.getString("mobile"));
+			} 
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		return mDTO;
+	}
+
+	public void updateMember(MemberDTO mDTO) {
+		try {
+			conn=getConnetion();
+			String sql="UPDATE member SET name=?, email=?, address=?, phone=?, mobile=? WHERE id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, mDTO.getName());
+			pstmt.setString(2, mDTO.getEmail());
+			pstmt.setString(3, mDTO.getAddress());
+			pstmt.setString(4, mDTO.getPhone());
+			pstmt.setString(5, mDTO.getMobile());
+			pstmt.setString(6, mDTO.getId());
+			pstmt.executeUpdate();
+		
+		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbClose();

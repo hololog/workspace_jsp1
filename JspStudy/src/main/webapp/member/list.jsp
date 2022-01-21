@@ -1,5 +1,5 @@
+<%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -23,7 +23,7 @@ if(id==null){%>
 
 MemberDAO mDAO=new MemberDAO();
 
-ArrayList<MemberDTO> list = mDAO.showList();
+List<MemberDTO> list = mDAO.showList();
 Iterator<MemberDTO> it=list.iterator();
 %>
 <table border="1">
@@ -31,13 +31,13 @@ Iterator<MemberDTO> it=list.iterator();
 		<th>아이디</th><th>비밀번호</th><th>이름</th><th>가입일</th>
 	</tr>
 	<%while(it.hasNext()){
-		MemberDTO m=(MemberDTO)it.next();
+		MemberDTO mDTO=(MemberDTO)it.next();
 	%>
 	<tr>
-		<td><%=m.getId() %></td>
-		<td><%=m.getPass() %></td>
-		<td><%=m.getName() %></td>
-		<td><%=m.getDate() %></td>
+		<td><%=mDTO.getId() %></td>
+		<td><%=mDTO.getPass() %></td>
+		<td><%=mDTO.getName() %></td>
+		<td><%=mDTO.getDate() %></td>
 	</tr>
 	<%}%>
 	<tr>
