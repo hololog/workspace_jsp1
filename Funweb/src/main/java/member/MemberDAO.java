@@ -1,7 +1,6 @@
 package member;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -24,7 +23,7 @@ public class MemberDAO {
 		
 		//커넥션풀적용
 		Context init=new InitialContext();
-		DataSource ds=(DataSource) init.lookup("jdbc:comp/env/jdbc/MysqlDB");
+		DataSource ds=(DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");
 		conn=ds.getConnection();
 		return conn;
 	}
