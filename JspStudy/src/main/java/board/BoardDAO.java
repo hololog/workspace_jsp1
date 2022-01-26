@@ -136,9 +136,7 @@ public class BoardDAO {
 				bDTO.setContent(rs.getString(5));
 				bDTO.setReadcount(rs.getInt(6));
 				bDTO.setDate(rs.getTimestamp(7));
-			} else {
-				return null;
-			}
+			} 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,27 +147,18 @@ public class BoardDAO {
 	}
 
 	public int updateBoard(BoardDTO bDTO) {
-		String sql="SELECT * FROM board WHERE num=? and pass=?";
-		
+		String sql="UPDATE board SET name=?,subject=?,content=? WHERE num=?";
+
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, bDTO.getNum());
-			pstmt.setString(2, bDTO.getPass());
-			rs=pstmt.executeQuery();
+			pstmt.setString(1,bDTO.getName());
+			pstmt.setString(2,bDTO.getSubject());
+			pstmt.setString(3,bDTO.getContent());
+			pstmt.setInt(4,bDTO.getNum());
+			pstmt.executeUpdate();
 			
-			if(rs.next()) {
-				sql="UPDATE board SET name=?,subject=?,content=? WHERE num=?";
-				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1,bDTO.getName());
-				pstmt.setString(2,bDTO.getSubject());
-				pstmt.setString(3,bDTO.getContent());
-				pstmt.setInt(4,bDTO.getNum());
-				pstmt.executeUpdate();
-				
-				return 1; //업데이트 성공
-			}
-			return 0; //패스워드 틀림	
+			return 1; //업데이트 성공
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -178,6 +167,52 @@ public class BoardDAO {
 		return -1; //업데이트 실패
 	}
 
+	public BoardDTO numcheck(int num, String pass) {
+		String sql="SELECT * FROM board WHERE num=? and pass=?";
+		BoardDTO bDTO = null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,num);
+			pstmt.setString(2,pass);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bDTO=new BoardDTO();
+				
+				bDTO.setNum(rs.getInt(1));
+				bDTO.setName(rs.getString(2));
+				bDTO.setPass(rs.getString(3));
+				bDTO.setSubject(rs.getString(4));
+				bDTO.setContent(rs.getString(5));
+				bDTO.setReadcount(rs.getInt(6));
+				bDTO.setDate(rs.getTimestamp(7));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		return bDTO;
+	}
+	
+	public void deleteBoard(int num) {
+		String sql="DELETE FROM board WHERE num=?";
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+	}
+	
 }
 
 

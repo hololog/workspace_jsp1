@@ -19,7 +19,7 @@ BoardDTO bDTO=bDAO.getContent(num);
 <input type="hidden" name="num" value="<%=num %>">
 <table border="1">
 	<tr>
-		<th>이름</th><td><input type="text" name="name" value="<%=bDTO.getName() %>" readonly></td>
+		<th>이름</th><td><input type="text" name="name" value="<%=bDTO.getName() %>" ></td>
 	</tr>
 	<tr>
 		<th>비밀번호</th><td><input type="password" name="pass"></td>

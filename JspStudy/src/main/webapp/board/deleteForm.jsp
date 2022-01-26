@@ -1,7 +1,5 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="board.BoardDAO"%>
+<%@page import="board.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,26 +19,10 @@
 </head>
 <body>
 <% 
-//삭제정보 가져오기 get방식(주소로)
 int num=Integer.parseInt(request.getParameter("num"));
-// 1 드라이버 가져오기
-Class.forName("com.mysql.jdbc.Driver");
-// 2 디비연결
-String dbUrl="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
-String dbId="root";
-String dbPass="1234";
-Connection connect=DriverManager.getConnection(dbUrl, dbId, dbPass);
-// 3 sql 작성/ 준비
-String sql="select * from board where num=?";
-PreparedStatement pstmt=connect.prepareStatement(sql);
-pstmt.setInt(1, num);
-// 4 sql 실행
-ResultSet rs=pstmt.executeQuery();
-// 5 접근
-if(rs.next()){
 %>
 	<form action="deletePro.jsp" method="post" id="frm">
-	<input type="hidden" name="num" value="<%=rs.getInt("num") %>">
+	<input type="hidden" name="num" value="<%=num %>">
 	<table border="1">
 		<tr>
 			<th>비밀번호</th><td><input type="password" name="pass"></td>
@@ -52,7 +34,7 @@ if(rs.next()){
 			<input type="button" value="취소" onclick="history.back()"></td>
 		</tr>
 	</table>
-<%} %>
+
 </form>
 </body>
 </html>

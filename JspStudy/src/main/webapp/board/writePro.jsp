@@ -3,7 +3,7 @@
 <%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="bean" class="board.BoardDTO" scope="page"></jsp:useBean>
+<jsp:useBean id="bDTO" class="board.BoardDTO" scope="page"></jsp:useBean>
 <jsp:setProperty property="*" name="bDTO" />
 <!DOCTYPE html>
 <html>
@@ -17,9 +17,9 @@ request.setCharacterEncoding("UTF-8");
 
 BoardDAO bDAO=new BoardDAO();
 
-bean.setNum(bDAO.getNextNum());
+bDTO.setNum(bDAO.getNextNum());
 
-bDAO.insertBoard(bean);
+bDAO.insertBoard(bDTO);
 response.sendRedirect("list.jsp");
 %>
 </body>
