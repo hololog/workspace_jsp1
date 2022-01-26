@@ -53,19 +53,17 @@ public class BoardDAO {
 	}
 	//게시글 생성
 	public void insertBoard(BoardDTO bDTO){
-		String sql="INSERT INTO board(num,name,pass,subject,content,readcount,date) VALUES(?,?,?,?,?,?,?)";
+		String sql="INSERT INTO board(num,id,subject,content,views,date) VALUES(?,?,?,?,?,?)";
 		
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,bDTO.getNum());
 			pstmt.setString(2,bDTO.getName());
-			pstmt.setString(3,bDTO.getPass());
-			pstmt.setString(4,bDTO.getSubject());
-			pstmt.setString(5,bDTO.getContent());
-			pstmt.setInt(6,0);//조회수는 0으로 초기화
-//			pstmt.setTimestamp(7, bDTO.getDate());
-			pstmt.setTimestamp(7,new Timestamp(System.currentTimeMillis()));
+			pstmt.setString(3,bDTO.getSubject());
+			pstmt.setString(4,bDTO.getContent());
+			pstmt.setInt(5,0);//조회수는 0으로 초기화
+			pstmt.setTimestamp(6,new Timestamp(System.currentTimeMillis()));
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -75,8 +73,8 @@ public class BoardDAO {
 		}
 	}
 
-	public void updateReadCount(int num) {
-		String sql="UPDATE board SET readcount=readcount+1 WHERE num=?";
+	public void updateViews(int num) {
+		String sql="UPDATE board SET views=views+1 WHERE num=?";
 		
 		try {
 			conn=getConnection();
@@ -90,7 +88,7 @@ public class BoardDAO {
 		}
 	}
 	
-	public List<BoardDTO> showList() {
+	public List<BoardDTO> getBoardList() {
 		String sql="SELECT num,name,subject,readcount,date FROM board ORDER BY num desc";
 		List<BoardDTO> list=new ArrayList<BoardDTO>();
 		BoardDTO bDTO=null;
@@ -100,11 +98,11 @@ public class BoardDAO {
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
-				bDTO = new BoardDTO();
+				bDTO=new BoardDTO();
 				bDTO.setNum(rs.getInt(1));
 				bDTO.setName(rs.getString(2));
 				bDTO.setSubject(rs.getString(3));
-				bDTO.setReadcount(rs.getInt(4));
+				bDTO.setViews(rs.getInt(4));
 				bDTO.setDate(rs.getTimestamp(5));
 				
 				list.add(bDTO);
@@ -134,7 +132,7 @@ public class BoardDAO {
 				bDTO.setPass(rs.getString(3));
 				bDTO.setSubject(rs.getString(4));
 				bDTO.setContent(rs.getString(5));
-				bDTO.setReadcount(rs.getInt(6));
+				bDTO.setViews(rs.getInt(6));
 				bDTO.setDate(rs.getTimestamp(7));
 			} 
 			
@@ -185,7 +183,7 @@ public class BoardDAO {
 				bDTO.setPass(rs.getString(3));
 				bDTO.setSubject(rs.getString(4));
 				bDTO.setContent(rs.getString(5));
-				bDTO.setReadcount(rs.getInt(6));
+				bDTO.setViews(rs.getInt(6));
 				bDTO.setDate(rs.getTimestamp(7));
 			}
 			
