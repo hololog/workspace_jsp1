@@ -37,7 +37,7 @@ if(pageNum==null){
 //   1        10   =>   1~10
 //   2        10   =>   11~20
 //   3        10   =>   21~30
-//
+int startRow=(pageNum-1)*pageSize+1;
 
 
 
