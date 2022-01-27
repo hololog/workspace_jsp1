@@ -3,6 +3,9 @@
 <%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+request.setCharacterEncoding("UTF-8");
+    %>
 <jsp:useBean id="bDTO" class="board.BoardDTO" scope="page"></jsp:useBean>
 <jsp:setProperty property="*" name="bDTO" />
 <!DOCTYPE html>

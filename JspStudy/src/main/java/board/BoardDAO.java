@@ -52,7 +52,7 @@ public class BoardDAO {
 	}
 	
 	public void insertBoard(BoardDTO bDTO){
-		String sql="INSERT INTO board(num,name,pass,subject,content,readcount,date) VALUES(?,?,?,?,?,?,?)";
+		String sql="INSERT INTO board(num,name,pass,subject,content,readcount,date,file) VALUES(?,?,?,?,?,?,?,?)";
 		
 		try {
 			conn=getConnection();
@@ -66,6 +66,8 @@ public class BoardDAO {
 			pstmt.setInt(6,0);
 //			pstmt.setTimestamp(7, bDTO.getDate());
 			pstmt.setTimestamp(7,new Timestamp(System.currentTimeMillis()));
+// 추가
+			pstmt.setString(8,bDTO.getFile());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -90,13 +92,17 @@ public class BoardDAO {
 		}
 	}
 	
-	public List<BoardDTO> showList() {
-		String sql="SELECT num,name,subject,readcount,date FROM board ORDER BY num desc";
-		List<BoardDTO> list=new ArrayList<BoardDTO>();
+	public List<BoardDTO> showList(int startRow,int pageSize) {
+//		String sql="SELECT num,name,subject,readcount,date FROM board ORDER BY num desc";
+		String sql="SELECT num,name,subject,readcount,date "
+				+ "FROM board ORDER BY num desc limit ?, ?";
+		List<BoardDTO> list=new ArrayList<>();
 		BoardDTO bDTO=null;
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -136,6 +142,7 @@ public class BoardDAO {
 				bDTO.setContent(rs.getString(5));
 				bDTO.setReadcount(rs.getInt(6));
 				bDTO.setDate(rs.getTimestamp(7));
+				bDTO.setFile(rs.getString("file"));
 			} 
 			
 		} catch (Exception e) {
@@ -213,6 +220,25 @@ public class BoardDAO {
 		}
 	}
 	
+	public int getBoardCount() {
+		String sql="SELECT count(*) from board";
+		int count=0;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		return count;
+	}
 }
 
 

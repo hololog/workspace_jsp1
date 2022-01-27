@@ -29,6 +29,12 @@ BoardDTO bDTO=bDAO.getContent(num);
 	 <th>글제목</th><td colspan="3"><%=bDTO.getSubject() %></td>  
 	</tr>
 	<tr>
+	 <th>첨부파일</th>
+	 <td colspan="3"><a href="../upload/<%=bDTO.getFile() %>" download><%=bDTO.getFile() %></a> 
+	 <img src="../upload/<%=bDTO.getFile() %>" width="" height=""><%=bDTO.getFile() %></td>  
+	 
+	</tr>
+	<tr>
 	 <th>글내용</th><td colspan="3"><%=bDTO.getContent() %></td>  
 	</tr>
 	<tr>

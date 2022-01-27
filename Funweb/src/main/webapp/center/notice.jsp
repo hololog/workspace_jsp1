@@ -1,3 +1,4 @@
+<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +46,28 @@
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
+<%
+//폴더 boardDAO
+BoardDAO bDAO=new BoardDAO();
+//pageSize설정
+int pageSize=15;
+//pageNum
+String pageNum=request.getParameter("pageNum");
+//페이지넘버가 없으면 무조건 1페이지
+if(pageNum==null){
+	pageNum="1";
+}
+//startRow
+int startRow=
+//endRow
+
+//getBoardList()
+
+
+
+
+
+%>
 <article>
 <h1>Notice</h1>
 <table id="notice">
