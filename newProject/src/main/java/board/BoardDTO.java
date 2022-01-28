@@ -3,13 +3,13 @@ package board;
 import java.sql.Timestamp;
 
 public class BoardDTO {
-	private int num;
-//	private String name;///////??유저
-//	private String pass;//////???유저
+	private int no;//기본키
+	private String name;//외래키
 	private String subject;
 	private String content;
-	private int views;
+	private int readcount;
 	private Timestamp date;
+	private String file;
 	
 	public int getNum() {
 		return num;
