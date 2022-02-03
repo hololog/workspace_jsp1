@@ -97,54 +97,43 @@ int endPage=startPage+pageBlock-1;
 // 	endPage=전체헤이지수
 //전체글 수 
 //sql = "SELECT count() from board";
-int totalPage = bDAO.getBoardCount();
+int count = bDAO.getBoardCount();
 //전체페이지수??
 //게시판 전체 글수50개  한화면의 보여줄 글개수10개 => 전체페이지수 5개 
 // 나머지가 있으면 1페이지를 더함
 // int pageCount=전체글 개수 / pageSize + (전체글 개수%pageSize==0 ? 0:1);
-int pageCount= totalPage/pageSize + (totalPage % pageSize==0 ? 0:1);
-if(endPage>=pageCount){
+int pageCount= count/pageSize + (count % pageSize==0 ? 0:1);
+
+if(endPage>pageCount){
 	endPage=pageCount;
 }
 %>
 </table>
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
-	  	<%
-		if(startPage > pageBlock){
-		%>
+<%
+		if(startPage > pageBlock){//이전페이지가 있음
+%>
 		    <li class="page-item">
-		      <a class="page-link" href="list.jsp?pageNum=<%=startPage-pageBlock %>" aria-label="Previous">
+		      <a class="page-link" href="list.jsp?pageNum=<%=startPage-1 %>" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
- 		<%} else{%>
-	    	
-		    <li class="page-item disabled">
-		      <a class="page-link" href="list.jsp?pageNum=<%=startPage-pageBlock %>" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		<%
-	    }
-			for(int i=startPage; i<=endPage; i++){
-		%>
+<%		} 
+		
+		for(int i=startPage; i<=endPage; i++){
+%>
 	    	<li class="page-item"><a class="page-link" href="list.jsp?pageNum=<%=i %>"><%=i %></a></li>
-	    <%} 
-		if(endPage < pageBlock){
-	    %>
-		    <li class="page-item disabled">
-		      <a class="page-link" href="list.jsp?pageNum=<%=startPage+10 %>" aria-label="Next">
+<%		} 
+		
+		if(endPage < pageCount){
+%>
+		    <li class="page-item">
+		      <a class="page-link" href="list.jsp?pageNum=<%=startPage+pageBlock %>" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
-		 <%}else{%>   
-		    <li class="page-item ">
-		      <a class="page-link" href="list.jsp?pageNum=<%=startPage+10 %>" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-	    <%}%>
+<%       }%>
 	  </ul>
 	</nav>
 </div>

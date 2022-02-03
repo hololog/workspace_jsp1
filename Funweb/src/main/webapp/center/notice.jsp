@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/notice.jsp</title>
+<title>Insert title here</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -47,65 +50,61 @@
 
 <!-- 게시판 -->
 <%
-//폴더 boardDAO
+// 폴더 board 파일이름 BoardDAO
+// BoardDAO 객체생성
 BoardDAO bDAO=new BoardDAO();
-//pageSize설정
+
+// pageSize 한화면에 보여줄 글개수 설정
 int pageSize=15;
-//pageNum
+// pageNum 페이지번호 가져오기
 String pageNum=request.getParameter("pageNum");
-//페이지넘버가 없으면 무조건 1페이지
+// pageNum없으면 1페이지 설정 
 if(pageNum==null){
 	pageNum="1";
 }
-//startRow
-int startRow=
-//endRow
+// startRow 시작하는 행번호 구하기
+// pageNum  pageSize  => startRow 
+//     1        5     =>   (1-1)*5+1=>0*5+1=>0+1=>1 ~5
+//     2        5     =>   (2-1)*5+1=>1*5+1=>5+1=>6 ~10
+//     3        5     =>   (3-1)*5+1=>2*5+1=>10+1=>11 ~15
+int currentPage=Integer.parseInt(pageNum);
+int startRow = (currentPage-1)*pageSize+1;
+// endRow 끝나는 행번호 구하기
+int endRow=startRow+pageSize-1;
 
-//getBoardList()
+// 리턴할형 List  getBoardList(int startRow, int pageSize) 메서드 정의
+// List boardList = getBoardList(startRow, pageSize) 메서드 호출
 
-
-
-
-
+// List boardList=bDAO.getBoardList(startRow, pageSize);
+List<BoardDTO> boardList=bDAO.getBoardList(startRow, pageSize);
+//날짜 => 모양변경 => String 문자열 변경
+SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>
 <article>
 <h1>Notice</h1>
 <table id="notice">
-<tr><th class="tno">No.</th>
-    <th class="ttitle">Title</th>
-    <th class="twrite">Writer</th>
-    <th class="tdate">Date</th>
-    <th class="tread">Read</th></tr>
-<tr><td>15</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>14</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>13</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>12</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>11</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>10</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>9</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>8</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>7</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>6</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>5</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>4</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>3</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>2</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>1</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>    
+	<tr>
+		<th class="tno">No.</th>
+	    <th class="ttitle">Title</th>
+	    <th class="twrite">Writer</th>
+	    <th class="tdate">Date</th>
+	    <th class="tread">Read</th>
+	</tr>
+<%
+    for(int i=0; i<boardList.size();i++){
+		BoardDTO bDTO=boardList.get(i);
+%>
+	<tr onclick="location.href='content.jsp?num=<%=bDTO.getNum() %>'">
+		<td><%=bDTO.getNum() %></td>
+	    <td class="left"><%=bDTO.getSubject() %></td>
+	    <td><%=bDTO.getName() %></td>
+	    <td><%=dateFormat.format(bDTO.getDate())%></td>
+	    <td><%=bDTO.getReadcount() %></td>
+	</tr>    	
+<%
+    }
+%>
+ 
 </table>
 <div id="table_search">
 <input type="text" name="search" class="input_box">
@@ -113,12 +112,29 @@ int startRow=
 </div>
 <div class="clear"></div>
 <div id="page_control">
-<a href="#">Prev</a>
-<a href="#">1</a><a href="#">2</a><a href="#">3</a>
-<a href="#">4</a><a href="#">5</a><a href="#">6</a>
-<a href="#">7</a><a href="#">8</a><a href="#">9</a>
-<a href="#">10</a>
-<a href="#">Next</a>
+<%
+int pageBlock=5;
+int count=bDAO.getBoardCount();
+int pageCount=count/pageSize+(count%pageSize==0? 0:1);
+int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+int endPage=startPage+pageBlock-1;
+
+if(endPage>pageCount){
+	endPage=pageCount;
+}
+	if(startPage > pageBlock){
+%>
+		<a href="notice.jsp?pageNum=<%=startPage-1 %>">Prev</a>
+<%	}
+	for(int i=startPage; i<=endPage; i++){
+%>
+		<a href="notice.jsp?pageNum=<%=i %>"><%=i %></a>
+<%	}
+	if(endPage < pageCount){
+%>	
+		<a href="notice.jsp?pageNum=<%=endPage+1 %>">Next</a>
+<%	}
+%>
 </div>
 </article>
 <!-- 게시판 -->
