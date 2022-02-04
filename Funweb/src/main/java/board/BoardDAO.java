@@ -131,4 +131,19 @@ public class BoardDAO {
 			dbClose();
 		}
 	}
+	public void deleteBoard(int num) {
+		String sql="DELETE FROM board WHERE num=?";
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+	}
 }
