@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/update.jsp</title>
+<title>fcenter/fwrite.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -36,7 +36,6 @@
 <!-- 메인이미지 -->
 <div id="sub_img_center"></div>
 <!-- 메인이미지 -->
-
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
@@ -46,35 +45,33 @@
 </ul>
 </nav>
 <!-- 왼쪽메뉴 -->
-
-<!-- 게시판 -->
 <%
-// num 파라미터 가져오기
-int num = Integer.parseInt(request.getParameter("num"));
-// BoardDAO 객체생성
-BoardDAO bDAO=new BoardDAO();
-//BoardDTO 리턴할형 getBoard(int num)메서드 정의
-//BoardDTO bDTO=  getBoard(num) 메서드 호출
-BoardDTO bDTO= bDAO.getBoard(num);
+String id=(String)session.getAttribute("id");
+if(id==null){
+	response.sendRedirect("../member/login.jsp");
+}
 %>
+<!-- 게시판 -->
 <article>
-<h1>Notice Update</h1>
-<form action="updatePro.jsp" method="post">
-<input type="hidden" name="num" value="<%=bDTO.getNum() %>">
+<h1>File Notice Write</h1>
+<form action="fwritePro.jsp" method="post" enctype="multipart/form-data">
 <table id="notice">
 	<tr>
-		<td>이름</td><td><input type="text" name="name" value="<%=bDTO.getName() %>" ></td>
+		<td>이름</td><td><input type="text" name="name" value="<%=id %>" ></td>
 	</tr>
 	<tr>
-		<td>제목</td><td><input type="text" name="subject" value="<%=bDTO.getSubject() %>"></td>
+		<td>제목</td><td><input type="text" name="subject"></td>
 	</tr>
 	<tr>
-		<td>내용</td><td><textarea name="content" rows="10" cols="20"><%=bDTO.getContent() %></textarea></td>
+		<td>파일</td><td><input type="file" name="file"></td>
+	</tr>
+	<tr>
+		<td>내용</td><td><textarea name="content" rows="10" cols="20"></textarea></td>
 	</tr>
 </table>
 <div id="table_search">
-	<input type="submit" value="글수정" class="btn" onclick="location.href='updatePro.jsp'">
-	<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+	<input type="submit" value="글등록" class="btn">
+	<input type="button" value="글목록" class="btn" onclick="location.href='fnotice.jsp'">
 </div>
 </form>
 <div class="clear"></div>

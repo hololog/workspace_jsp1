@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>gcenter/gnotice.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -80,7 +80,7 @@ List<BoardDTO> boardList=bDAO.getBoardList(startRow, pageSize);
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>
 <article>
-<h1>Notice</h1>
+<h1>Gallery File Notice</h1>
 <table id="notice">
 	<tr>
 		<th class="tno">No.</th>
@@ -93,9 +93,10 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
     for(int i=0; i<boardList.size();i++){
 		BoardDTO bDTO=boardList.get(i);
 %>
-	<tr onclick="location.href='content.jsp?num=<%=bDTO.getNum() %>'">
+	<tr onclick="location.href='gcontent.jsp?num=<%=bDTO.getNum() %>'">
 		<td><%=bDTO.getNum() %></td>
-	    <td class="left"><%=bDTO.getSubject() %></td>
+	    <td class="left"><%=bDTO.getSubject() %>
+	    <img src="../upload/<%=bDTO.getFile() %>" alt="파일이름" width="100" height="100"></td>
 	    <td><%=bDTO.getName() %></td>
 	    <td><%=dateFormat.format(bDTO.getDate())%></td>
 	    <td><%=bDTO.getReadcount() %></td>
@@ -111,7 +112,7 @@ String id=(String)session.getAttribute("id");
 // 세션값이 있으면 글쓰기 버튼 보이기
 if(id!=null){
 %>
-	<input type="button" value="글쓰기" class="btn" onclick="location.href='write.jsp'">	
+	<input type="button" value="글쓰기" class="btn" onclick="location.href='gwrite.jsp'">	
 <%
 }
 %>
@@ -134,15 +135,15 @@ if(endPage>pageCount){
 }
 	if(startPage > pageBlock){
 %>
-		<a href="notice.jsp?pageNum=<%=startPage-1 %>">Prev</a>
+		<a href="gnotice.jsp?pageNum=<%=startPage-1 %>">Prev</a>
 <%	}
 	for(int i=startPage; i<=endPage; i++){
 %>
-		<a href="notice.jsp?pageNum=<%=i %>"><%=i %></a>
+		<a href="gnotice.jsp?pageNum=<%=i %>"><%=i %></a>
 <%	}
 	if(endPage < pageCount){
 %>	
-		<a href="notice.jsp?pageNum=<%=endPage+1 %>">Next</a>
+		<a href="gnotice.jsp?pageNum=<%=endPage+1 %>">Next</a>
 <%	}
 %>
 </div>

@@ -48,6 +48,7 @@ public class BoardDAO {
 				bDTO.setSubject(rs.getString("subject"));
 				bDTO.setContent(rs.getString("content"));
 				bDTO.setReadcount(rs.getInt("readcount"));
+				bDTO.setFile(rs.getString("file"));
 				bDTO.setDate(rs.getTimestamp("date"));
 				boardList.add(bDTO);
 			}
@@ -104,8 +105,9 @@ public class BoardDAO {
 				bDTO.setName(rs.getString("name"));
 				bDTO.setSubject(rs.getString("subject"));
 				bDTO.setContent(rs.getString("content"));
-				bDTO.setReadcount(rs.getInt("readcouknt"));
+				bDTO.setReadcount(rs.getInt("readcount"));
 				bDTO.setDate(rs.getTimestamp("date"));
+				bDTO.setFile(rs.getString("file"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,14 +117,15 @@ public class BoardDAO {
 		return bDTO;
 	}
 	public void updateBoard(BoardDTO bDTO) {
-		String sql="UPDATE board set subject=?,content=? WHERE num=?";
+		String sql="UPDATE board set subject=?,content=?,file=? WHERE num=?";
 		
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, bDTO.getSubject());
 			pstmt.setString(2, bDTO.getContent());
-			pstmt.setInt(3, bDTO.getNum());
+			pstmt.setString(3, bDTO.getFile());
+			pstmt.setInt(4, bDTO.getNum());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -145,5 +148,45 @@ public class BoardDAO {
 		} finally {
 			dbClose();
 		}
+	}
+	public int getMaxNum() {
+		String sql="SELECT max(num) FROM board";
+		int result=0;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result=rs.getInt("max(num)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		} 
+		return result;
+	}
+	public void insertBoard(BoardDTO insertDTO) {
+		String sql="INSERT INTO board(num,name,pass,subject,content,readcount,date,file)"
+				 + "VALUES(?,?,?,?,?,?,?,?)";
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, insertDTO.getNum());
+			pstmt.setString(2, insertDTO.getName());
+			pstmt.setString(3, insertDTO.getPass());
+			pstmt.setString(4, insertDTO.getSubject());
+			pstmt.setString(5, insertDTO.getContent());
+			pstmt.setInt(6, insertDTO.getReadcount());
+			pstmt.setTimestamp(7, insertDTO.getDate());
+			pstmt.setString(8, insertDTO.getFile());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		} 
 	}
 }

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/update.jsp</title>
+<title>gcenter/gupdate.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -58,9 +58,10 @@ BoardDAO bDAO=new BoardDAO();
 BoardDTO bDTO= bDAO.getBoard(num);
 %>
 <article>
-<h1>Notice Update</h1>
-<form action="updatePro.jsp" method="post">
+<h1>Gallery Notice Update</h1>
+<form action="gupdatePro.jsp" method="post" enctype="multipart/form-data">
 <input type="hidden" name="num" value="<%=bDTO.getNum() %>">
+
 <table id="notice">
 	<tr>
 		<td>이름</td><td><input type="text" name="name" value="<%=bDTO.getName() %>" ></td>
@@ -69,12 +70,19 @@ BoardDTO bDTO= bDAO.getBoard(num);
 		<td>제목</td><td><input type="text" name="subject" value="<%=bDTO.getSubject() %>"></td>
 	</tr>
 	<tr>
+		<td>파일</td>
+		<td>
+			<input type="file" name="file"><%=bDTO.getFile()%>
+			<input type="hidden" name="oldFile" value="<%=bDTO.getFile()%>">
+		</td>
+	</tr>
+	<tr>
 		<td>내용</td><td><textarea name="content" rows="10" cols="20"><%=bDTO.getContent() %></textarea></td>
 	</tr>
 </table>
 <div id="table_search">
-	<input type="submit" value="글수정" class="btn" onclick="location.href='updatePro.jsp'">
-	<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+	<input type="submit" value="글수정" class="btn" onclick="location.href='gupdatePro.jsp'">
+	<input type="button" value="글목록" class="btn" onclick="location.href='gnotice.jsp'">
 </div>
 </form>
 <div class="clear"></div>

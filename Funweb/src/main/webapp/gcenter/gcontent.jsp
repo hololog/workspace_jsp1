@@ -1,3 +1,5 @@
+<%@page import="member.MemberDTO"%>
+<%@page import="member.MemberDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="board.BoardDTO"%>
 <%@page import="java.util.List"%>
@@ -8,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>center/update.jsp</title>
+<title>gceter/gcontent.jsp</title>
 <link href="../css/default.css" rel="stylesheet" type="text/css">
 <link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
@@ -49,36 +51,46 @@
 
 <!-- 게시판 -->
 <%
-// num 파라미터 가져오기
 int num = Integer.parseInt(request.getParameter("num"));
-// BoardDAO 객체생성
 BoardDAO bDAO=new BoardDAO();
-//BoardDTO 리턴할형 getBoard(int num)메서드 정의
-//BoardDTO bDTO=  getBoard(num) 메서드 호출
+bDAO.updateReadCount(num);
 BoardDTO bDTO= bDAO.getBoard(num);
 %>
 <article>
-<h1>Notice Update</h1>
-<form action="updatePro.jsp" method="post">
-<input type="hidden" name="num" value="<%=bDTO.getNum() %>">
+<h1>Gallery Notice Content</h1>
 <table id="notice">
-	<tr>
-		<td>이름</td><td><input type="text" name="name" value="<%=bDTO.getName() %>" ></td>
-	</tr>
-	<tr>
-		<td>제목</td><td><input type="text" name="subject" value="<%=bDTO.getSubject() %>"></td>
-	</tr>
-	<tr>
-		<td>내용</td><td><textarea name="content" rows="10" cols="20"><%=bDTO.getContent() %></textarea></td>
-	</tr>
+<tr><td>글번호</td><td><%=bDTO.getNum() %></td>
+     <td>글쓴날짜</td><td><%=bDTO.getDate() %></td></tr>
+<tr><td>글쓴이</td><td><%=bDTO.getName() %></td>
+    <td>조회수</td><td><%=bDTO.getReadcount() %></td></tr>
+<tr><td>글제목</td><td colspan="3"><%=bDTO.getSubject() %></td></tr>
+<tr><td>글내용</td><td colspan="3"><%=bDTO.getContent() %></td></tr>
+<tr><td>첨부파일</td><td colspan="3"><img src="../upload/<%=bDTO.getFile() %>" alt="파일이름" width="100" height="100"></td></tr>
 </table>
 <div id="table_search">
-	<input type="submit" value="글수정" class="btn" onclick="location.href='updatePro.jsp'">
-	<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+<input type="button" value="글목록" class="btn" onclick="location.href='gnotice.jsp'">
+<%
+// 세션값 가져오기
+String id=(String)session.getAttribute("id");
+// 세션값이 있으면 
+// 세션값(로그인)과  글쓴이 일치하면 
+MemberDAO mDAO=new MemberDAO();
+MemberDTO mDTO=mDAO.getMember(id);
+
+if(id!=null){
+	if(id.equals(bDTO.getName())){
+		%>
+<input type="button" value="글수정" class="btn" onclick="location.href='gupdate.jsp?num=<%=bDTO.getNum() %>'">
+<input type="button" value="글삭제" class="btn" onclick="location.href='gdelete.jsp?num=<%=bDTO.getNum() %>'">	
+		<%
+	}
+}
+%>
+
 </div>
-</form>
 <div class="clear"></div>
 <div id="page_control">
+
 </div>
 </article>
 <!-- 게시판 -->
