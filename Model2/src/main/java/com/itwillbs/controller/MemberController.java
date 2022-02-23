@@ -1,13 +1,16 @@
 package com.itwillbs.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.MemberService;
 
@@ -67,14 +70,104 @@ public class MemberController extends HttpServlet {
 			
 		} else if(substringPath.equals("/loginPro.me")) {
 			
-			request.setCharacterEncoding("utf-8");
 			String id=request.getParameter("id");
 			String pass=request.getParameter("pass");
 			
 			MemberService memberService = new MemberService();
-			memberService.usercheck(id, pass);
+			MemberDTO mDTO = memberService.usercheck(id, pass);
 			
+			if(mDTO != null) {
+				//session객체 생성
+				HttpSession session = request.getSession();
+				session.setAttribute("id", id);
+				//member.main.jsp로 이동
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("member/main.jsp");
+//				dispatcher.forward(request, response);// 주소 불일치
+				response.sendRedirect("main.me");
+			} else {
+				//뒤로 이동 => 자바에서 자바스크립트 사용 자바에서 html출력
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('입력정보가 틀림');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			
+		} else if(substringPath.equals("/main.me")) {
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/main.jsp");
+			dispatcher.forward(request, response);
+		
+		} else if(substringPath.equals("/logout.me")) {
+			
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("login.me");
+			
+		} else if(substringPath.equals("/info.me")) {
+			
+			HttpSession session = request.getSession();
+			String id=(String)session.getAttribute("id");
+			
+//			if(id==null) {
+//				
+//			}
+			
+			MemberService memberService = new MemberService();
+			MemberDTO mDTO = memberService.getMember(id);
+			
+			//request객체에 담아감
+			request.setAttribute("mDTO", mDTO);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/info.jsp");
+			dispatcher.forward(request, response);
+			
+		} else if(substringPath.equals("/update.me")) {
+			
+			HttpSession session = request.getSession();
+			String id=(String)session.getAttribute("id");
+			
+			MemberService memberService = new MemberService();
+			MemberDTO mDTO = memberService.getMember(id);
+			request.setAttribute("mDTO", mDTO);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/updateForm.jsp");
+			dispatcher.forward(request, response);
+			
+		} else if(substringPath.equals("/updatePro.me")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String id=request.getParameter("id");
+			String pass=request.getParameter("pass");
+			String name=request.getParameter("name");
+			String pass1=request.getParameter("pass1");
+			String pass2=request.getParameter("pass2");
+			
+			MemberService memberService = new MemberService();
+			MemberDTO mDTO = memberService.usercheck(id, pass);
+			
+			if(mDTO != null) {
+				
+				
+				
+			} if(!pass1.equals(pass2)) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('변경할 비밀번호가 일치하지 않습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('입력정보가 틀림');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
 		}
+		
 		
 	}
 	

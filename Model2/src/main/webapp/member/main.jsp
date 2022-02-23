@@ -10,18 +10,15 @@
 <%
 String id=(String)session.getAttribute("id");
 
-if(id==null){%>
-	<script type="text/javascript">
-		alert("로그인해주세요");
-		location.href="loginForm.jsp";
-	</script>
-<%}
+if(id==null){
+	response.sendRedirect("login.me");
+}
 %>
 <h1><%=id %>님이 로그인 하셨습니다.</h1>
-	<input type="button" value="회원정보수정" onclick="location.href='updateForm.jsp'"><br><br>
-	<input type="button" value="회원정보조회" onclick="location.href='info.jsp'"><br><br>
-	<input type="button" value="회원탈퇴" onclick="location.href='deleteForm.jsp'"><br><br>
-	<input type="button" value="로그아웃" onclick="location.href='logout.jsp'"><br><br>
+	<input type="button" value="회원정보수정" onclick="location.href='update.me'"><br><br>
+	<input type="button" value="회원정보조회" onclick="location.href='info.me'"><br><br>
+	<input type="button" value="회원탈퇴" onclick="location.href='delete.me'"><br><br>
+	<input type="button" value="로그아웃" onclick="location.href='logout.me'"><br><br>
 <%
 if(id!=null){
 	if(id.equals("admin")){%>

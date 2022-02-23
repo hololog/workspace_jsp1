@@ -1,5 +1,3 @@
-<%@page import="member.MemberDAO"%>
-<%@page import="member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +15,6 @@ String name=request.getParameter("name");
 String pass1=request.getParameter("pass1");
 String pass2=request.getParameter("pass2");
 
-MemberDAO mDAO=new MemberDAO();
 MemberDTO mDTO=mDAO.userCheck(id, pass);
 
 if(pass1.equals(pass2)) {

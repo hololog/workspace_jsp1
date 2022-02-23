@@ -17,12 +17,17 @@ public class MemberService {
 		mDAO.insertMem(mDTO);
 		
 	}
-	public void usercheck(String id, String pass) {
-		
+	public MemberDTO usercheck(String id, String pass) {
+		System.out.println("memberService usercheck()");
 		MemberDAO mDAO = new MemberDAO();
-		mDAO.userCheck(id, pass);
 		
+		return mDAO.userCheck(id, pass);
 	}
-	
-	
+	public MemberDTO getMember(String id) {
+		System.out.println("memberService getMember()");
+		MemberDAO mDAO = new MemberDAO();
+		
+		return mDAO.getInfo(id);
+	}
+	public void updTe.
 }
