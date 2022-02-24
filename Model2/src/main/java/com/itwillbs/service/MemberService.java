@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
@@ -29,5 +30,35 @@ public class MemberService {
 		
 		return mDAO.getInfo(id);
 	}
-	public void updTe.
+	public void updateMember(MemberDTO mDTO) {
+		System.out.println("MemberService updatePro()");
+		MemberDAO mDAO = new MemberDAO();
+		mDAO.updateMem(mDTO);
+		
+	}
+	public void deleteMember(MemberDTO mDTO) {
+		System.out.println("MemberService deletePro()");
+		MemberDAO mDAO = new MemberDAO();
+		mDAO.deleteMem(mDTO);
+	}
+	public List<MemberDTO> getList(){
+		System.out.println("MemberService showlist()");
+		MemberDAO mDAO = new MemberDAO();
+		return mDAO.showList();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

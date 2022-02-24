@@ -8,12 +8,12 @@
 </head>
 <body>
 <%
-request.setCharacterEncoding("UTF-8");
-String id=request.getParameter("id");
-String pass=request.getParameter("pass");
-String name=request.getParameter("name");
-String pass1=request.getParameter("pass1");
-String pass2=request.getParameter("pass2");
+// request.setCharacterEncoding("UTF-8");
+// String id=request.getParameter("id");
+// String pass=request.getParameter("pass");
+// String name=request.getParameter("name");
+// String pass1=request.getParameter("pass1");
+// String pass2=request.getParameter("pass2");
 
 MemberDTO mDTO=mDAO.userCheck(id, pass);
 

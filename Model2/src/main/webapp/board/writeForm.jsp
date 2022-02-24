@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>글작성</h2>
-<form action="writePro.jsp" method="post">
+<form action="writePro" method="post">
 <table border="1">
 	<tr>
 		<th>이름</th><td><input type="text" name="name"></td>

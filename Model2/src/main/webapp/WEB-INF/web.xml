@@ -9,7 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+
 <!--  .me 가상주소가 들어오면 서블릿 지정 -->
 <servlet>
 	<servlet-name>MemberController</servlet-name>
@@ -19,4 +19,13 @@
 	<servlet-name>MemberController</servlet-name>
 	<url-pattern>*.me</url-pattern>
 </servlet-mapping>
-</web-app>
+
+<servlet>
+	<servlet-name>BoardController</servlet-name>
+	<servlet-class>com.itwillbs.controller.BoardController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>BoardController</servlet-name>
+	<url-pattern>/</url-pattern>
+</servlet-mapping>
+</web-app> 

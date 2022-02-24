@@ -13,7 +13,7 @@ String id=(String)session.getAttribute("id");
 if(id!=null){%>
 	<script type="text/javascript">
 		alert("이미 로그인한 사용입니다.");
-		location.href="main.jsp";
+		location.href="main.me";
 	</script>
 <%}%>
 <h1>로그인</h1>

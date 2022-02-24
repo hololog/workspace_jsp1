@@ -1,7 +1,6 @@
+<%@page import="com.itwillbs.domain.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="member.MemberDTO"%>
-<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,11 +19,8 @@ if(id==null){%>
 		location.href="loginForm.jsp";
 	</script>
 <%}
-
-MemberDAO mDAO=new MemberDAO();
-
-List<MemberDTO> list = mDAO.showList();
-Iterator<MemberDTO> it=list.iterator();
+List<MemberDTO> list = (List<MemberDTO>)session.getAttribute("list");
+Iterator<MemberDTO> it = list.iterator();
 %>
 <table border="1">
 	<tr>

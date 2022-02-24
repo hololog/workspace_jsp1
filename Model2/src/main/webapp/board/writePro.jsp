@@ -21,12 +21,9 @@ request.setCharacterEncoding("UTF-8");
 BoardDAO bDAO=new BoardDAO();
 
 bDTO.setNum(bDAO.getNextNum());
-// for(int i=24;i<120;i++){
-// 	bDTO.setNum(i);
-// 	bDAO.insertBoard(bDTO);
-// }
+
 bDAO.insertBoard(bDTO);
-response.sendRedirect("list.jsp");
+response.sendRedirect("boardList.me");
 %>
 </body>
 </html>

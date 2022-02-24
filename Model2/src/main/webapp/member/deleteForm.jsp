@@ -21,7 +21,7 @@
 String id=(String)session.getAttribute("id");
 %>
 
-<form action="deletePro.jsp" method="post" id="frm">
+<form action="deletePro.me" method="post" id="frm">
 아이디 :<input type="text" name="id" value="<%=id %>" readonly><br>
 비밀번호 :<input type="password" name="pass"><br>
   <input type="button" value="회원정보삭제" onclick="del()" >

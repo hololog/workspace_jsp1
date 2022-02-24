@@ -2,6 +2,7 @@ package com.itwillbs.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.itwillbs.dao.MemberDAO;
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.service.BoardService;
 import com.itwillbs.service.MemberService;
 
 //서블릿(처리담당자)로 만들기
@@ -147,28 +150,85 @@ public class MemberController extends HttpServlet {
 			MemberService memberService = new MemberService();
 			MemberDTO mDTO = memberService.usercheck(id, pass);
 			
-			if(mDTO != null) {
-				
-				
-				
-			} if(!pass1.equals(pass2)) {
+			if(pass1.equals(pass2)) {
+						
+				if(mDTO != null) {
+					mDTO.setPass(pass1);
+					mDTO.setName(name);
+					mDTO.setId(id);
+					memberService.updateMember(mDTO);
+					
+					response.sendRedirect("main.me");
+					
+				} else {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('기존 비밀번호가 일치하지 않습니다.');");
+					out.println("history.back();");
+					out.println("</script>");
+				}
+					
+			} else {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('변경할 비밀번호가 일치하지 않습니다.');");
 				out.println("history.back();");
 				out.println("</script>");
+			}
+			
+		} else if(substringPath.equals("/delete.me")) {
+//			HttpSession session = request.getSession();
+//			session.getAttribute("id");
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/deleteForm.jsp");
+			dispatcher.forward(request, response);
+		
+		} else if(substringPath.equals("/deletePro.me")) {
+			request.setCharacterEncoding("utf-8");
+			String pass = request.getParameter("pass");
+			String id = request.getParameter("id");
+			
+			MemberService memberService = new MemberService();
+			MemberDTO mDTO = memberService.usercheck(id, pass);
+			
+			if(mDTO!=null) {
+				memberService.deleteMember(mDTO);
+
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('정상적으로 탈퇴되었습니다.');");
+				out.println("</script>");
+		
+				HttpSession session = request.getSession();
+				session.invalidate();
+				
+				response.sendRedirect("main.me");
+				
 			} else {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('입력정보가 틀림');");
+				out.println("alert('비밀번호가 일치하지 않습니다.');");
 				out.println("history.back();");
 				out.println("</script>");
 			}
-		}
-		
-		
+					
+		} else if(substringPath.equals("/list.me")) {
+			
+			MemberService memberService = new MemberService();
+			List<MemberDTO> list = memberService.getList();
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("list", list);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/list.jsp");
+			dispatcher.forward(request, response);
+			
+		} 
+			
 	}
 	
 	@Override

@@ -22,7 +22,7 @@ if(id==null){
 <%
 if(id!=null){
 	if(id.equals("admin")){%>
-		<input type="button" value="회원목록" onclick="location.href='list.jsp'">
+		<input type="button" value="회원목록" onclick="location.href='list.me'">
 	<%}
 }
 %>	
